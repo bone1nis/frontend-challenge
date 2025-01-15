@@ -1,27 +1,22 @@
 import { ReactElement } from "react";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { fetchCats, toggleLiked } from "../../store/catsSlice";
+import { toggleLiked } from "../../store/catsSlice";
 
 import { ICat } from "../../types/types";
 
 import CatCard from "../catCard/CatCard";
-import InfiniteScroll from "react-infinite-scroll-component";
 
-import s from "./catsList.module.scss";
+import s from "./catsLikedList.module.scss";
 
-const CatsList = (): ReactElement => {
+const CatsLikedList = (): ReactElement => {
   const dispath = useAppDispatch();
 
-  const cats = useAppSelector((state) => state.cats.catsList);
+  const cats = useAppSelector((state) => state.cats.likedCatsList);
   const loading = useAppSelector((state) => state.cats.loadingStatus);
 
   const onLike = (id: string) => {
     dispath(toggleLiked(id));
-  };
-
-  const handleFetchedCats = () => {
-    dispath(fetchCats(15));
   };
 
   const renderCards = (arr: ICat[]) => {
@@ -37,29 +32,23 @@ const CatsList = (): ReactElement => {
     });
   };
 
+  const spinner = loading === "loading" && (
+    <div className={s.catsLikedListError}>... загружаем котиков ...</div>
+  );
   const content = (loading === "idle" || loading === "loading") && (
-    <InfiniteScroll
-      dataLength={cats.length}
-      next={handleFetchedCats}
-      hasMore={true}
-      loader={
-        <div className={s.catsListLoading}>... загружаем еще котиков ...</div>
-      }
-      className={s.catsList}
-    >
-      {renderCards(cats)}
-    </InfiniteScroll>
+    <div className={s.catsLikedList}>{renderCards(cats)}</div>
   );
   const error = loading === "error" && (
-    <div className={s.catsListError}>... упс, произошла ошибка ...</div>
+    <div className={s.catsLikedListLoading}>... упс, произошла ошибка ...</div>
   );
 
   return (
     <>
       {content}
+      {spinner}
       {error}
     </>
   );
 };
 
-export default CatsList;
+export default CatsLikedList;

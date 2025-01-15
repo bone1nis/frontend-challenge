@@ -7,12 +7,12 @@ import { useHttp } from "../hooks/http.hook";
 import { ICat } from "../types/types";
 
 
-export const fetchCats = createAsyncThunk<ICat[]>(
+export const fetchCats = createAsyncThunk<ICat[], number | undefined>(
     "cats/fetchCats",
-    async () => {
+    async (value = 20) => {
         const request = useHttp<ICat[]>();
 
-        const res = await request("https://api.thecatapi.com/v1/images/search?limit=15&breed_ids=beng&api_key=live_xZleH3vcw7GdeK3M3k5rgc4P49RMgyM5ZF59otRlTbRyM2qDwu5DL0Qs8ypFmH2I");
+        const res = await request(`https://api.thecatapi.com/v1/images/search?limit=${value}&api_key=live_xZleH3vcw7GdeK3M3k5rgc4P49RMgyM5ZF59otRlTbRyM2qDwu5DL0Qs8ypFmH2I`);
         return res
     }
 );
@@ -64,7 +64,7 @@ const catsSlice = createSlice({
             state.loadingStatus = "loading"
         })
         .addCase(fetchCats.fulfilled, (state, action: PayloadAction<ICat[]>) => {
-            state.catsList = [...action.payload]
+            state.catsList = [...state.catsList, ...action.payload]
             state.loadingStatus = "idle"
         })
         .addCase(fetchCats.rejected, (state) => {

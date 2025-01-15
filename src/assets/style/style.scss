@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
-@import url(./buttons.scss);
 
 * {
   font-family: "Roboto", sans-serif;
@@ -39,7 +38,7 @@ button {
   text-decoration: none;
   color: inherit;
   display: inline-block;
-  font-family: "Roboto Condensed", sans-serif;
+  font-family: "Roboto", sans-serif;
   &:hover {
     text-decoration: none;
     color: inherit;
@@ -62,17 +61,4 @@ input::-webkit-inner-spin-button {
 a:focus {
   outline: none;
   border: none;
-}
-
-.app {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.main {
-  flex: 1 1 auto;
-  margin: 0 auto;
-  width: 1100px;
-  padding: 50px 0 50px 0;
 }

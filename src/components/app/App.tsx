@@ -1,4 +1,4 @@
-import { ReactElement, useEffect } from "react"
+import { ReactElement, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router";
 
 import { fetchCats } from "../../store/catsSlice";
@@ -10,11 +10,10 @@ import MainPage from "../pages/mainPage/MainPage";
 import LikedCatsPage from "../pages/likeCatsPage/LikeCatsPage";
 
 const App = (): ReactElement => {
-
-  const dispatch = useAppDispatch(); // баг с linkAcitve fiks
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchCats())
+    dispatch(fetchCats());
   }, []);
 
   return (
@@ -25,7 +24,7 @@ const App = (): ReactElement => {
         <Route path="/liked" element={<LikedCatsPage />} />
       </Routes>
     </BrowserRouter>
-  )
-}
+  );
+};
 
-export default App
+export default App;

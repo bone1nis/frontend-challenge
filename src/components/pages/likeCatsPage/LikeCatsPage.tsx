@@ -1,13 +1,13 @@
 import { ReactElement } from "react";
 
-import CatsList from "../../catsList/CatsList";
+import CatsLikedList from "../../catsLikedList/CatsLikedList";
 
 const LikedCatsPage = (): ReactElement => {
-    return (
-        <>
-            <CatsList liked={true} />
-        </>
-    )
-}
+  return (
+    <>
+      <CatsLikedList />
+    </>
+  );
+};
 
 export default LikedCatsPage;
