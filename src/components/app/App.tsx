@@ -1,4 +1,4 @@
-import { ReactElement, useEffect } from "react";
+import { lazy, ReactElement, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router";
 
 import { fetchCats } from "../../store/catsSlice";
@@ -6,8 +6,9 @@ import { fetchCats } from "../../store/catsSlice";
 import { useAppDispatch } from "../../hooks/hooks";
 
 import AppHeader from "../appHeader/AppHeader";
-import MainPage from "../pages/mainPage/MainPage";
-import LikedCatsPage from "../pages/likeCatsPage/LikeCatsPage";
+
+const MainPage = lazy(() => import("../pages/mainPage/MainPage"));
+const LikedCatsPage = lazy(() => import("../pages/likeCatsPage/LikeCatsPage"));
 
 const App = (): ReactElement => {
   const dispatch = useAppDispatch();
@@ -17,7 +18,7 @@ const App = (): ReactElement => {
   }, []);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <AppHeader />
       <Routes>
         <Route index element={<MainPage />} />
