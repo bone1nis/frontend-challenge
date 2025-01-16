@@ -46,7 +46,7 @@ const initialState: initialState = {
 
 
 const catsSlice = createSlice({
-    name: "fruits",
+    name: "cats",
     initialState: initialState,
     reducers: {
         catAdd: (state, action: PayloadAction<ICat>) => {
